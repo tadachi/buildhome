@@ -35,20 +35,32 @@ app.listen(port); // Listen through the specified port.
 app.enable('trust proxy');
 
 /*
- * Setup the website.
+ * Initialize website.
  */
 
-// This app is routed to a variable called home called home calling express.io. You can host multiple websites by following home as a template.
-var home = require('express.io')();
-var mtc = require('express.io')();
-var srl = require('express.io')();
+// This app is routed to a variable called homepage called homepage calling express.io. You can host multiple websites by following homepage as a template.
+var homepage = require('express.io')();
+var multitwitchchat = require('express.io')();
+var srlplayer = require('express.io')();
+
+/*
+ * Setup the website resources
+ */
 
 // This has to be relative to where your html files are located, etc. In this case it is in App.
-home.use('/js', express.static(__dirname + 'homepage/view/js'));
-home.use('/css', express.static(__dirname + 'homepage/view/css'));;
-//home.use('/img', express.static(__dirname + '/app/img'));
+homepage.use('/js', express.static(__dirname + '/homepage/view/js'));
+homepage.use('/css', express.static(__dirname + '/homepage/view/css'));
+homepage.use('/img', express.static(__dirname + '/homepage/view/img'));
 
-home.set('jsonp callback', true);
+multitwitchchat.use('/js', express.static(__dirname + '/multitwitchchat/app/js'));
+multitwitchchat.use('/css', express.static(__dirname + '/multitwitchchat/app/css'));
+multitwitchchat.use('/img', express.static(__dirname + '/multitwitchchat/app/img'));
+
+srlplayer.use('/js', express.static(__dirname + '/srlplayer/app/js'));
+srlplayer.use('/css', express.static(__dirname + '/srlplayer/app/css'));
+srlplayer.use('/img', express.static(__dirname + '/srlplayer/app/img'));
+
+//home.set('jsonp callback', true);
 
 /* Add specific headers before you send a response to your client. */
 //home.use(function (req, res, next) {
@@ -63,24 +75,31 @@ home.set('jsonp callback', true);
     //next();
 //});
 
-var hostname = 'localhost'; // Set the hostname for your website.
-app.use(vhost(hostname, home)); // Vhost allows you to host multiple websites on the same server.
+app.use(vhost('www.tak.com', homepage)); // Vhost allows you to host multiple websites on the same server.
+app.use(vhost('mtc.tak.com', multitwitchchat)); // Vhost allows you to host multiple websites on the same server.
+app.use(vhost('srl.tak.com', srlplayer)); // Vhost allows you to host multiple websites on the same server.
 
-home.get('/', function(req, res) {
-    //req.header('Access-Control-Allow-Origin', '*');
-    res.sendfile(__dirname + '../../homepage/view/index.html');
+/*
+ * Routing
+ */
+homepage.get('/', function(req, res) {
+    res.sendfile(__dirname + '/homepage/view/index.html');
+    //req.io.route('homepage');
+})
 
-    req.io.route('home');
+multitwitchchat.get('/', function(req, res) {
+    res.sendfile(__dirname + '/multitwitchchat/app/index.html');
+})
+srlplayer.get('/', function(req, res) {
+    res.sendfile(__dirname + '/srlplayer/app/index.html');
 })
 
 /* Outputs the users' ips visiting your website. */
-app.io.route('home', function (req) {
-    console.log(req.ip);
-});
+// app.io.route('homepage', function (req) {
+    // console.log('homepage: ' + req.ip);
+// });
 
 /* Debug */
 console.log(__dirname);
 console.log(__dirname + '/app/');
 console.log('Listening on port: ' + port);
-console.log('hostname: ' + hostname);
-console.log('go to ' + hostname + ':' + port);
