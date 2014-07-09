@@ -3,7 +3,7 @@
 clonecmd="git clone "
 
 repo1="https://github.com/tadachi/homepage.git"
-$directory1="homepage"
+directory1="homepage"
 
 if [ -d $directory1 ];
 then
