@@ -1,6 +1,6 @@
 /*
 * Dependencies:
-* npm install express cpmmect body-parser method-override fs path vhost express.io
+* npm install express connect body-parser method-override fs path vhost express.io
 *
 *
 */
@@ -51,6 +51,10 @@ var srlplayer = require('express.io')();
 homepage.use('/js', express.static(__dirname + '/homepage/view/js'));
 homepage.use('/css', express.static(__dirname + '/homepage/view/css'));
 homepage.use('/img', express.static(__dirname + '/homepage/view/img'));
+homepage.use('/fonts', express.static(__dirname + '/homepage/view/css/fonts'))
+homepage.use('/pdf', express.static(__dirname + '/homepage/view/pdf'));
+homepag.use('/res', express.static(__dirname + '/homepage/view/res'));
+homepag.use('/webm', express.static(__dirname + '/homepage/view/webm'));
 
 multitwitchchat.use('/js', express.static(__dirname + '/multitwitchchat/app/js'));
 multitwitchchat.use('/css', express.static(__dirname + '/multitwitchchat/app/css'));
@@ -75,9 +79,9 @@ srlplayer.use('/img', express.static(__dirname + '/srlplayer/app/img'));
     //next();
 //});
 
-app.use(vhost('www.tak.com', homepage)); // Vhost allows you to host multiple websites on the same server.
-app.use(vhost('mtc.tak.com', multitwitchchat)); // Vhost allows you to host multiple websites on the same server.
-app.use(vhost('srl.tak.com', srlplayer)); // Vhost allows you to host multiple websites on the same server.
+app.use(vhost('www.takbytes.com', homepage)); // Vhost allows you to host multiple websites on the same server.
+app.use(vhost('mtc.takbytes.com', multitwitchchat)); // Vhost allows you to host multiple websites on the same server.
+app.use(vhost('srl.takbytes.com', srlplayer)); // Vhost allows you to host multiple websites on the same server.
 
 /*
  * Routing
