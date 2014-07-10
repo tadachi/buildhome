@@ -53,8 +53,8 @@ homepage.use('/css', express.static(__dirname + '/homepage/view/css'));
 homepage.use('/img', express.static(__dirname + '/homepage/view/img'));
 homepage.use('/fonts', express.static(__dirname + '/homepage/view/css/fonts'))
 homepage.use('/pdf', express.static(__dirname + '/homepage/view/pdf'));
-homepag.use('/res', express.static(__dirname + '/homepage/view/res'));
-homepag.use('/webm', express.static(__dirname + '/homepage/view/webm'));
+homepage.use('/res', express.static(__dirname + '/homepage/view/res'));
+homepage.use('/webm', express.static(__dirname + '/homepage/view/webm'));
 
 multitwitchchat.use('/js', express.static(__dirname + '/multitwitchchat/app/js'));
 multitwitchchat.use('/css', express.static(__dirname + '/multitwitchchat/app/css'));
