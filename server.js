@@ -58,7 +58,7 @@ var multitwitchchat = require('express.io')();
 var srlplayer = require('express.io')();
 
 /*
- * Explicitly setup the website(s)' resources. 
+ * Explicitly setup the website(s)' resources.
  */
 
 // This has to be relative to where your html files are located, etc. In this case it is in App.
@@ -120,8 +120,7 @@ app.io.route('log', function (req) {
 });
 
 // '*' denotes catch all. If the above routes do not trigger, respond with 404.
-app.get('*', function(err, req, res, next) {
-    console.log(err.status);
+app.get('*', function(req, res, next) {
     res.sendfile(__dirname + '/html-error-pages/404.html');
 });
 
