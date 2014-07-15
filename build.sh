@@ -1,36 +1,22 @@
 #!/bin/bash
 
-clonecmd="git clone "
+repo[0]='https://github.com/tadachi/homepage.git'
+repo[1]='https://github.com/tadachi/multitwitchchat.git'
+repo[2]='https://github.com/tadachi/srlplayer.git'
+repo[3]='https://github.com/tadachi/html-error-pages.git'
 
-repo1="https://github.com/tadachi/homepage.git"
-directory1="homepage"
+directory[0]='homepage'
+directory[1]='multitwitchchat'
+directory[2]='srlplayer'
+directory[3]='html-error-pages'
 
-if [ -d $directory1 ];
-then
-	printf "Updating '%s'.... " $directory1
-	(cd $directory1 ; git pull);
-else
-	eval $clonecmd $repo1;
-fi
-
-repo2="https://github.com/tadachi/multitwitchchat.git"
-directory2="multitwitchchat"
-
-if [ -d $directory2 ];
-then
-	printf "Updating '%s'.... " $directory2
-	(cd $directory2 ; git pull);
-else
-	eval $clonecmd $repo2;
-fi
-
-repo3="https://github.com/tadachi/srlplayer.git"
-directory3="srlplayer"
-
-if [ -d $directory3 ];
-then
-	printf "Updating '%s'.... " $directory3
-	(cd $directory3 ; git pull);
-else
-	eval $clonecmd $repo3;
-fi
+for i in {0..3}
+do
+	if [ -d ${directory[$i]} ]; # -d checks if directory is empty
+	then
+		printf "Updating '%s'.... " ${directory[$i]}
+		(cd ${directory[$i]} ; git pull); # git pull the latest version.
+	else
+		eval git clone ${repo[$i]}; # clone the latest version.
+	fi
+done

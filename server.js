@@ -18,13 +18,22 @@ var vhost           = require('vhost');
 var app             = require('express.io')();
 var port            = parseInt(process.env.PORT, 10) || 4000;
 
+// Simple timestamp function. Invoke with timestamp();
+htimestamp = function() {
+    var date = new Date();
+    result = '[' + date.getFullYear() + '/' + date.getMonth() + '/' +
+        date.getDate() + '/' + date.getHours() + ':' +
+        date.getMinutes() + ':' + date.getSeconds() + ']';
+    return result;
+}
+
 app.http().io(); // Initialize the server.
 
 /*
  * Configure the server.
  */
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({extended: true})); // extended: true gets rid of deprecated warning.
 
 // parse application/json
 app.use(bodyParser.json());
@@ -32,10 +41,15 @@ app.use(bodyParser.json());
 app.use(methodOverride());
 
 app.listen(port); // Listen through the specified port.
-app.enable('trust proxy');
+app.enable('trust proxy'); // When nodejs runs behind proxy like nodejs, allow it to forward to it.
 
 /*
- * Initialize website.
+ * Setup 4xx 5xx error pages.
+ */
+app.use('/html-error-pages', express.static(__dirname + '/html-error-pages'));
+
+/*
+ * Initialize website(s).
  */
 
 // This app is routed to a variable called homepage called homepage calling express.io. You can host multiple websites by following homepage as a template.
@@ -44,7 +58,7 @@ var multitwitchchat = require('express.io')();
 var srlplayer = require('express.io')();
 
 /*
- * Setup the website resources
+ * Explicitly setup the website(s)' resources. 
  */
 
 // This has to be relative to where your html files are located, etc. In this case it is in App.
@@ -79,29 +93,37 @@ srlplayer.use('/img', express.static(__dirname + '/srlplayer/app/img'));
     //next();
 //});
 
-app.use(vhost('www.takbytes.com', homepage)); // Vhost allows you to host multiple websites on the same server.
-app.use(vhost('mtc.takbytes.com', multitwitchchat)); // Vhost allows you to host multiple websites on the same server.
-app.use(vhost('srl.takbytes.com', srlplayer)); // Vhost allows you to host multiple websites on the same server.
+app.use(vhost('www.tak.com', homepage)); // Vhost allows you to host multiple websites on the same server.
+app.use(vhost('mtc.tak.com', multitwitchchat));
+app.use(vhost('srl.tak.com', srlplayer));
 
 /*
  * Routing
  */
 homepage.get('/', function(req, res) {
     res.sendfile(__dirname + '/homepage/view/index.html');
-    //req.io.route('homepage');
+    req.io.route('log');
 })
 
 multitwitchchat.get('/', function(req, res) {
     res.sendfile(__dirname + '/multitwitchchat/app/index.html');
+    req.io.route('log');
 })
 srlplayer.get('/', function(req, res) {
     res.sendfile(__dirname + '/srlplayer/app/index.html');
+    req.io.route('log');
 })
 
-/* Outputs the users' ips visiting your website. */
-// app.io.route('homepage', function (req) {
-    // console.log('homepage: ' + req.ip);
-// });
+/* Outputs the users' ips visiting your website with a timestamp.*/
+app.io.route('log', function (req) {
+    console.log(htimestamp() + ' ' + req.ip);
+});
+
+// '*' denotes catch all. If the above routes do not trigger, respond with 404.
+app.get('*', function(err, req, res, next) {
+    console.log(err.status);
+    res.sendfile(__dirname + '/html-error-pages/404.html');
+});
 
 /* Debug */
 console.log(__dirname);
