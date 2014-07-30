@@ -4,7 +4,6 @@
 *
 *
 */
-
 var express         = require('express');
 
 var bodyParser      = require('body-parser'); // Middleware that decodes JSON and POST parameters
@@ -38,7 +37,12 @@ app.use(bodyParser.urlencoded({extended: true})); // extended: true gets rid of 
 // parse application/json
 app.use(bodyParser.json());
 
-app.use(methodOverride());
+// Simulate HTTP DELETE and PUT.
+// Only uncomment is you want to use PUT and DELETE.
+// app.use(methodOverride());
+
+//Do not tell header that server is powered by Node.js
+app.disable('x-powered-by');
 
 app.listen(port); // Listen through the specified port.
 app.enable('trust proxy'); // When nodejs runs behind proxy like nodejs, allow it to forward to it.
@@ -77,21 +81,6 @@ multitwitchchat.use('/img', express.static(__dirname + '/multitwitchchat/app/img
 srlplayer.use('/js', express.static(__dirname + '/srlplayer/app/js'));
 srlplayer.use('/css', express.static(__dirname + '/srlplayer/app/css'));
 srlplayer.use('/img', express.static(__dirname + '/srlplayer/app/img'));
-
-//home.set('jsonp callback', true);
-
-/* Add specific headers before you send a response to your client. */
-//home.use(function (req, res, next) {
-    // Website you wish to allow to connect via CORS
-//     res.header('Access-Control-Allow-Origin', '*');
-//     res.header("Access-Control-Allow-Headers", "X-Requested-With");
-
-    // Request methods you wish to allow
-//	res.setHeader('Access-Control-Allow-Methods', 'GET');
-
-    // Pass to next layer of middleware
-    //next();
-//});
 
 app.use(vhost('www.tak.com', homepage)); // Vhost allows you to host multiple websites on the same server.
 app.use(vhost('mtc.tak.com', multitwitchchat));
