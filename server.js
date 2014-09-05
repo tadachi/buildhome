@@ -115,5 +115,4 @@ app.get('*', function(req, res, next) {
 
 /* Debug */
 console.log(__dirname);
-console.log(__dirname + '/app/');
 console.log('Listening on port: ' + port);
