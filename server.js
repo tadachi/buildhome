@@ -1,15 +1,10 @@
 /*
 * Dependencies:
-* npm install express connect body-parser method-override fs path vhost express.io
+* npm install express connect vhost express.io
 *
 *
 */
 var express         = require('express');
-
-var bodyParser      = require('body-parser'); // Middleware that decodes JSON and POST parameters
-var methodOverride  = require('method-override'); // Middleware that simulates DELETE (delete specified file on origin server) and PUT (Store file on origin server).
-var fs              = require('fs'); // Read and write to files through nodejs.
-var path            = require('path'); // Useful for manipulating strings that reference paths to files.
 
 var router          = express.Router();
 var vhost           = require('vhost');
@@ -31,21 +26,11 @@ app.http().io(); // Initialize the server.
 /*
  * Configure the server.
  */
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({extended: true})); // extended: true gets rid of deprecated warning.
-
-// parse application/json
-app.use(bodyParser.json());
-
-// Simulate HTTP DELETE and PUT.
-// Only uncomment is you want to use PUT and DELETE.
-// app.use(methodOverride());
 
 //Do not tell header that server is powered by Node.js
 app.disable('x-powered-by');
 
 app.listen(port); // Listen through the specified port.
-app.enable('trust proxy'); // When nodejs runs behind proxy like nodejs, allow it to forward to it.
 
 /*
  * Setup 4xx 5xx error pages.
