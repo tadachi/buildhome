@@ -69,7 +69,7 @@ var srlplayer = require('express.io')();
 homepage.use('/js', express.static(__dirname + '/homepage/view/js'));
 homepage.use('/css', express.static(__dirname + '/homepage/view/css'));
 homepage.use('/img', express.static(__dirname + '/homepage/view/img'));
-homepage.use('/fonts', express.static(__dirname + '/homepage/view/css/fonts'))
+homepage.use('/fonts', express.static(__dirname + '/homepage/view/fonts'))
 homepage.use('/pdf', express.static(__dirname + '/homepage/view/pdf'));
 homepage.use('/res', express.static(__dirname + '/homepage/view/res'));
 homepage.use('/webm', express.static(__dirname + '/homepage/view/webm'));
@@ -82,9 +82,9 @@ srlplayer.use('/js', express.static(__dirname + '/srlplayer/app/js'));
 srlplayer.use('/css', express.static(__dirname + '/srlplayer/app/css'));
 srlplayer.use('/img', express.static(__dirname + '/srlplayer/app/img'));
 
-app.use(vhost('www.tak.com', homepage)); // Vhost allows you to host multiple websites on the same server.
-app.use(vhost('mtc.tak.com', multitwitchchat));
-app.use(vhost('srl.tak.com', srlplayer));
+app.use(vhost('www.takbytes.com', homepage)); // Vhost allows you to host multiple websites on the same server.
+app.use(vhost('mtc.takbytes.com', multitwitchchat));
+app.use(vhost('srl.takbytes.com', srlplayer));
 
 /*
  * Routing
