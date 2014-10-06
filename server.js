@@ -12,6 +12,8 @@ var vhost           = require('vhost');
 var app             = require('express.io')();
 var port            = parseInt(process.env.PORT, 10) || 4000;
 
+var favicon         = require('serve-favicon');
+
 // Simple timestamp function. Invoke with timestamp();
 htimestamp = function() {
     var date = new Date();
@@ -70,6 +72,8 @@ srlplayer.use('/img', express.static(__dirname + '/srlplayer/app/img'));
 app.use(vhost('www.takbytes.com', homepage)); // Vhost allows you to host multiple websites on the same server.
 app.use(vhost('mtc.takbytes.com', multitwitchchat));
 app.use(vhost('srl.takbytes.com', srlplayer));
+app.use(favicon(__dirname + '/favicon.ico'));
+
 
 /*
  * Routing
