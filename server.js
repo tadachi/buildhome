@@ -46,7 +46,7 @@ app.use('/html-error-pages', express.static(__dirname + '/html-error-pages'));
 // This app is routed to a variable called homepage called homepage calling express.io. You can host multiple websites by following homepage as a template.
 var homepage = require('express.io')();
 var multitwitchchat = require('express.io')();
-var srlplayer = require('express.io')();
+var srlplayer2 = require('express.io')();
 
 /*
  * Explicitly setup the website(s)' resources.
@@ -65,15 +65,14 @@ multitwitchchat.use('/js', express.static(__dirname + '/multitwitchchat/app/js')
 multitwitchchat.use('/css', express.static(__dirname + '/multitwitchchat/app/css'));
 multitwitchchat.use('/img', express.static(__dirname + '/multitwitchchat/app/img'));
 
-srlplayer.use('/js', express.static(__dirname + '/srlplayer/app/js'));
-srlplayer.use('/css', express.static(__dirname + '/srlplayer/app/css'));
-srlplayer.use('/img', express.static(__dirname + '/srlplayer/app/img'));
+srlplayer2.use('/js', express.static(__dirname + '/srlplayer2/app/js'));
+srlplayer2.use('/css', express.static(__dirname + '/srlplayer2/app/css'));
+srlplayer2.use('/img', express.static(__dirname + '/srlplayer2/app/img'));
 
 app.use(vhost('www.takbytes.com', homepage)); // Vhost allows you to host multiple websites on the same server.
 app.use(vhost('mtc.takbytes.com', multitwitchchat));
-app.use(vhost('srl.takbytes.com', srlplayer));
+app.use(vhost('srl.takbytes.com', srlplayer2));
 app.use(favicon(__dirname + '/favicon.ico'));
-
 
 /*
  * Routing
@@ -87,8 +86,8 @@ multitwitchchat.get('/', function(req, res) {
     res.sendfile(__dirname + '/multitwitchchat/app/index.html');
     req.io.route('log');
 })
-srlplayer.get('/', function(req, res) {
-    res.sendfile(__dirname + '/srlplayer/app/index.html');
+srlplayer2.get('/', function(req, res) {
+    res.sendfile(__dirname + '/srlplayer2/app/index.html');
     req.io.route('log');
 })
 

@@ -5,12 +5,13 @@ setlocal ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
 
 set repo[1]=https://github.com/tadachi/homepage.git
 set repo[2]=https://github.com/tadachi/multitwitchchat.git
-set repo[3]=https://github.com/tadachi/srlplayer.git
+REM set repo[3]=https://github.com/tadachi/srlplayer.git
+set repo[3]=https://github.com/tadachi/srlplayer2.git
 set repo[4]=https://github.com/tadachi/html-error-pages.git
 
 set directory[1]=homepage
 set directory[2]=multitwitchchat
-set directory[3]=srlplayer
+set directory[3]=srlplayer2
 set directory[4]=html-error-pages
 
 REM full path to current directory including drive.
