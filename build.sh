@@ -1,13 +1,13 @@
 #!/bin/bash
 
 repo[0]='https://github.com/tadachi/homepage.git'
-repo[1]='https://github.com/tadachi/multitwitchchat.git'
+repo[1]='https://github.com/tadachi/multi-twitch-chat.git'
 #repo[2]='https://github.com/tadachi/srlplayer.git'
 repo[2]='https://github.com/tadachi/srlplayer2.git'
 repo[3]='https://github.com/tadachi/html-error-pages.git'
 
 directory[0]='homepage'
-directory[1]='multitwitchchat'
+directory[1]='multi-twitch-chat'
 directory[2]='srlplayer2'
 directory[3]='html-error-pages'
 
