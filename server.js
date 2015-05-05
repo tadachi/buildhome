@@ -1,6 +1,7 @@
 var express         = require('express');
 var vhost           = require('vhost');
-var port            = parseInt(process.env.PORT, 10) || 4000;
+var httpPort            = parseInt(process.env.PORT, 10) || 4000;
+var httpsPort            = parseInt(process.env.PORT, 10) || 4001;
 var favicon         = require('serve-favicon');
 
 var events = require('events');
@@ -8,6 +9,17 @@ var eventEmitter = new events.EventEmitter();
 
 var app = express();
 var geoip = require('geoip-lite');
+
+var fs = require('fs');
+
+// SSL stuff. Do git commit paths to your actual keys. Edit the paths after cloning.
+//var privateKey  = fs.readFileSync('YOUR PATH', 'utf8');
+//var certificate = fs.readFileSync('YOUR PATH', 'utf8');
+var privateKey  = fs.readFileSync('YOUR PATH', 'utf8');
+var certificate = fs.readFileSync('YOUR PATH', 'utf8');
+
+var credentials = {key: privateKey, cert: certificate};
+
 
 // Simple timestamp function. Invoke with timestamp();
 htimeStamp = function() {
@@ -25,16 +37,26 @@ var bunyan = require('bunyan');
 var log = bunyan.createLogger({name: 'myapp'});
 
 /**
- *  Configure the server.
+ *  Configure the HTTP httpServer.
  */
-var server = app.listen(port, function() {
-    //debug('Express server listening on port ' + server.address().port);
+var httpServer = app.listen(httpPort, function() {
+    //debug('Express httpServer listening on httpPort ' + httpServer.address().httpPort);
     console.log(__dirname);
-    console.log('Listening on port: ' + port);
+    console.log('Listening on httpPort: ' + httpPort);
     console.log('node -v: ' + process.versions.node);
 });
 
-var io = require('socket.io').listen(server);
+/**
+ *  Configure the HTTPS httpServer.
+ */
+var httpsServer = app.listen(httpPort, function() {
+    //debug('Express httpServer listening on httpPort ' + httpServer.address().httpPort);
+    console.log(__dirname);
+    console.log('Listening on httpPort: ' + httpPort);
+    console.log('node -v: ' + process.versions.node);
+});
+
+var io = require('socket.io').listen(httpServer);
 
 /**
  *  Initialize website(s).
@@ -56,9 +78,9 @@ homepage.use('/pdf', express.static(__dirname + '/homepage/view/pdf'));
 homepage.use('/res', express.static(__dirname + '/homepage/view/res'));
 homepage.use('/webm', express.static(__dirname + '/homepage/view/webm'));
 
-multitwitchchat.use('/js', express.static(__dirname + '/multitwitchchat/app/js'));
-multitwitchchat.use('/css', express.static(__dirname + '/multitwitchchat/app/css'));
-multitwitchchat.use('/img', express.static(__dirname + '/multitwitchchat/app/img'));
+multitwitchchat.use('/js', express.static(__dirname + '/multi-twitch-chat/app/js'));
+multitwitchchat.use('/css', express.static(__dirname + '/multi-twitch-chat/app/css'));
+multitwitchchat.use('/img', express.static(__dirname + '/multi-twitch-chat/app/img'));
 
 srlplayer2.use('/js', express.static(__dirname + '/srlplayer2/app/js'));
 srlplayer2.use('/css', express.static(__dirname + '/srlplayer2/app/css'));
@@ -76,7 +98,7 @@ homepage.get('/', function(req, res) {
 })
 
 multitwitchchat.get('/', function(req, res) {
-    res.sendFile(__dirname + '/multitwitchchat/app/index.html');
+    res.sendFile(__dirname + '/multi-twitch-chat/app/index.html');
     eventEmitter.emit('process IP', req.ip);
 })
 srlplayer2.get('/', function(req, res) {
@@ -85,13 +107,13 @@ srlplayer2.get('/', function(req, res) {
 })
 
 // Actual domain names.
-app.use(vhost('www.takbytes.com', homepage ));
-app.use(vhost('mtc.takbytes.com', multitwitchchat ));
-app.use(vhost('srl.takbytes.com', srlplayer2 ));
+//app.use(vhost('www.takbytes.com', homepage ));
+//app.use(vhost('www.takbytes.com/multitwitchchat', multitwitchchat ));
+//app.use(vhost('www.takbytes.com/srlplayer2/', srlplayer2 ));
 // Local host file domain names.
-//app.use(vhost('www.tak.com', homepage ));
-//app.use(vhost('mtc.tak.com', multitwitchchat ));
-//app.use(vhost('srl.tak.com', srlplayer2 ));
+app.use(vhost('www.tak.com', homepage ));
+app.use(vhost('www.tak.com/multitwitchchat/', multitwitchchat ));
+app.use(vhost('www.tak.com/srlplayer2/', srlplayer2 ));
 
 // '*' denotes catch all. If the above routes do not trigger, respond with 404.
 app.get('*', function(req, res, next) {
@@ -102,7 +124,7 @@ app.get('*', function(req, res, next) {
  *  Events
  */
 eventEmitter.on('process IP', function(ip) {
-    log.info({'time' : htimeStamp()}, geoip.lookup("207.97.227.239"));
+    log.info({'time' : htimeStamp()}, geoip.lookup(ip));
 });
 
 /**
@@ -120,7 +142,3 @@ io.on('connection', function(socket){ // By default io looks for 'connection' me
         //console.log(htimeStamp() + " event: disconnected - connected users: " + io.engine.clientsCount);
     });
 });
-
-/**
- *  Routing.
- */
