@@ -62,6 +62,9 @@ var ioHttp = require('socket.io').listen(httpServer);
 // This app is routed to a variable called homepage called homepage calling express. You can host multiple websites by following homepage as a template.
 var home = express();
 
+/**
+ *  Explicitly setup the website(s)' resources.
+ */
 home.use('/js', express.static(__dirname + '/homepage/view/js'));
 home.use('/css', express.static(__dirname + '/homepage/view/css'));
 home.use('/img', express.static(__dirname + '/homepage/view/img'));
@@ -78,29 +81,7 @@ home.use('/srlplayer2/js', express.static(__dirname + '/srlplayer2/app/js'));
 home.use('/srlplayer2/css', express.static(__dirname + '/srlplayer2/app/css'));
 home.use('/srlplayer2/img', express.static(__dirname + '/srlplayer2/app/img'));
 
-//var homepage = express();
-//var multitwitchchat = express();
-//var srlplayer2 = express();
 
-/**
- *  Explicitly setup the website(s)' resources.
- */
-// This has to be relative to where your html files are located, etc. In this case it is in App.
-//homepage.use('/js', express.static(__dirname + '/homepage/view/js'));
-//homepage.use('/css', express.static(__dirname + '/homepage/view/css'));
-//homepage.use('/img', express.static(__dirname + '/homepage/view/img'));
-//homepage.use('/fonts', express.static(__dirname + '/homepage/view/fonts'));
-//homepage.use('/pdf', express.static(__dirname + '/homepage/view/pdf'));
-//homepage.use('/res', express.static(__dirname + '/homepage/view/res'));
-//homepage.use('/webm', express.static(__dirname + '/homepage/view/webm'));
-//
-//multitwitchchat.use('/js', express.static(__dirname + '/multi-twitch-chat/app/js'));
-//multitwitchchat.use('/css', express.static(__dirname + '/multi-twitch-chat/app/css'));
-//multitwitchchat.use('/img', express.static(__dirname + '/multi-twitch-chat/app/img'));
-//
-//srlplayer2.use('/js', express.static(__dirname + '/srlplayer2/app/js'));
-//srlplayer2.use('/css', express.static(__dirname + '/srlplayer2/app/css'));
-//srlplayer2.use('/img', express.static(__dirname + '/srlplayer2/app/img'));
 
 // Set the Favicon.
 app.use(favicon(__dirname + '/favicon.ico'));
@@ -108,37 +89,24 @@ app.use(favicon(__dirname + '/favicon.ico'));
 /**
  *  Serve web content.
  */
-//homepage.get('/', function(req, res) {
-//    res.sendFile(__dirname + '/homepage/view/index.html');
-//    eventEmitter.emit('process IP', req.ip);
-//})
-//
-//multitwitchchat.get('/multi-twitch-chat', function(req, res) {
-//    res.sendFile(__dirname + '/multi-twitch-chat/app/index.html');
-//    eventEmitter.emit('process IP', req.ip);
-//})
-//srlplayer2.get('/srlplayer2', function(req, res) {
-//    res.sendFile(__dirname + '/srlplayer2/app/index.html');
-//    eventEmitter.emit('process IP', req.ip);
-//})
-
 home.get('/', function(req, res) {
     res.sendFile(__dirname + '/homepage/view/index.html');
     eventEmitter.emit('process IP', req.ip);
 })
 
-home.get('/multi-twitch-chat', function(req, res) {
+home.get('/multi-twitch-chat/', function(req, res) {
     res.sendFile(__dirname + '/multi-twitch-chat/app/index.html');
     eventEmitter.emit('process IP', req.ip);
 })
-home.get('/srlplayer2', function(req, res) {
+home.get('/srlplayer2/', function(req, res) {
     res.sendFile(__dirname + '/srlplayer2/app/index.html');
     eventEmitter.emit('process IP', req.ip);
 })
 
 // Actual domain names.
-
+app.use(vhost('www.takbytes.com', home));
 // Local host file domain names.
+app.use(vhost('www.tak.com', home));
 
 // '*' denotes catch all. If the above routes do not trigger, respond with 404.
 app.get('*', function(req, res, next) {
