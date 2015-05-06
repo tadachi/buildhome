@@ -59,7 +59,7 @@ var ioHttp = require('socket.io').listen(httpServer);
 /**
  *  Initialize website(s).
  */
-// This app is routed to a variable called homepage called homepage calling express.io. You can host multiple websites by following homepage as a template.
+// This app is routed to a variable called homepage called homepage calling express. You can host multiple websites by following homepage as a template.
 var homepage = express();
 var multitwitchchat = express();
 var srlplayer2 = express();
