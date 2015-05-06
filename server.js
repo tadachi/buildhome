@@ -95,7 +95,7 @@ homepage.get('/', function(req, res) {
     eventEmitter.emit('process IP', req.ip);
 })
 
-multitwitchchat.get('/multitwitchchat', function(req, res) {
+multitwitchchat.get('/multi-twitch-chat', function(req, res) {
     res.sendFile(__dirname + '/multi-twitch-chat/app/index.html');
     eventEmitter.emit('process IP', req.ip);
 })
@@ -105,13 +105,13 @@ srlplayer2.get('/srlplayer2', function(req, res) {
 })
 
 // Actual domain names.
-//app.use(vhost('www.takbytes.com', homepage ));
-//app.use(vhost('www.takbytes.com/multitwitchchat', multitwitchchat ));
-//app.use(vhost('www.takbytes.com/srlplayer2/', srlplayer2 ));
+app.use(vhost('www.takbytes.com', homepage ));
+app.use(vhost('www.takbytes.com', multitwitchchat ));
+app.use(vhost('www.takbytes.com', srlplayer2 ));
 // Local host file domain names.
-app.use(vhost('www.tak.com', homepage ));
-app.use(vhost('www.tak.com', multitwitchchat ));
-app.use(vhost('www.tak.com', srlplayer2 ));
+//app.use(vhost('www.tak.com', homepage ));
+//app.use(vhost('www.tak.com', multitwitchchat ));
+//app.use(vhost('www.tak.com', srlplayer2 ));
 
 // '*' denotes catch all. If the above routes do not trigger, respond with 404.
 app.get('*', function(req, res, next) {
