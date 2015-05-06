@@ -1,7 +1,7 @@
 var express         = require('express');
 var vhost           = require('vhost');
 var httpPort        = parseInt(process.env.PORT, 10) || 4000;
-var httpsPort       = parseInt(process.env.PORT, 10) || 4001;
+//var httpsPort       = parseInt(process.env.PORT, 10) || 4001;
 var favicon         = require('serve-favicon');
 
 var events          = require('events');
@@ -16,8 +16,7 @@ var https           = require('https');
 // SSL stuff. Do git commit paths to your actual keys. Edit the paths after cloning.
 //var privateKey  = fs.readFileSync('YOUR PATH', 'utf8');
 //var certificate = fs.readFileSync('YOUR PATH', 'utf8');
-
-var options = {key: privateKey, cert: certificate};
+//var options = {key: privateKey, cert: certificate};
 
 // Simple timestamp function. Invoke with timestamp();
 htimeStamp = function() {
@@ -47,15 +46,15 @@ var httpServer = app.listen(httpPort, function() {
 /**
  *  Configure the HTTPS webServer. and launch it.
  */
-var httpsServer  = https.createServer(options, app).listen(httpsPort, function() {
-    //debug('Express webServer listening on httpPort ' + webServer.address().httpPort);
-    console.log(__dirname);
-    console.log('Listening on httpPort: ' + httpsPort);
-    console.log('node -v: ' + process.versions.node);
-});
+//var httpsServer  = https.createServer(options, app).listen(httpsPort, function() {
+//    //debug('Express webServer listening on httpPort ' + webServer.address().httpPort);
+//    console.log(__dirname);
+//    console.log('Listening on httpPort: ' + httpsPort);
+//    console.log('node -v: ' + process.versions.node);
+//});
 
 var ioHttp = require('socket.io').listen(httpServer);
-var ioHttps = require('socket.io').listen(httpsServer);
+//var ioHttps = require('socket.io').listen(httpsServer);
 
 /**
  *  Initialize website(s).
@@ -145,15 +144,15 @@ ioHttp.on('connection', function(socket){ // By default io looks for 'connection
 /**
  * Socket.io Server-side. HTTPS
  */
-ioHttps.on('connection', function(socket){ // By default io looks for 'connection' message.
-    socket.on('connect srl', function(msg){
-        ioHttps.emit('connected srl', ioHttps.engine.clientsCount);
-        //console.log(htimeStamp() + " event: connected - connected users: " + io.engine.clientsCount);
-    });
-
-    // Disconnect such as closing tab and exiting webpage.
-    socket.on('disconnect', function() {
-        ioHttps.emit('connected srl', ioHttps.engine.clientsCount);
-        //console.log(htimeStamp() + " event: disconnected - connected users: " + io.engine.clientsCount);
-    });
-});
+//ioHttps.on('connection', function(socket){ // By default io looks for 'connection' message.
+//    socket.on('connect srl', function(msg){
+//        ioHttps.emit('connected srl', ioHttps.engine.clientsCount);
+//        //console.log(htimeStamp() + " event: connected - connected users: " + io.engine.clientsCount);
+//    });
+//
+//    // Disconnect such as closing tab and exiting webpage.
+//    socket.on('disconnect', function() {
+//        ioHttps.emit('connected srl', ioHttps.engine.clientsCount);
+//        //console.log(htimeStamp() + " event: disconnected - connected users: " + io.engine.clientsCount);
+//    });
+//});
