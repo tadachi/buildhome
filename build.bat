@@ -13,12 +13,12 @@ set directory[1]=homepage
 set directory[2]=multi-twitch-chat
 set directory[3]=srlplayer2
 set directory[4]=html-error-pages
-set directory[5]=match-follows
+set directory[5]=match-follows-for-twitch
 
 REM full path to current directory including drive.
 REM set mypath=%~dp0
 
-for /l %%i in (1, 1, 4) do (
+for /l %%i in (1, 1, 5) do (
     if exist !directory[%%i]! (
         echo Updating !directory[%%i]!....
         cd !directory[%%i]! & git pull & cd ..

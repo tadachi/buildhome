@@ -11,9 +11,9 @@ directory[0]='homepage'
 directory[1]='multi-twitch-chat'
 directory[2]='srlplayer2'
 directory[3]='html-error-pages'
-directory[3]='match-follows'
+directory[4]='match-follows-for-twitch'
 
-for i in {0..3}
+for i in {0..4}
 do
 	if [ -d ${directory[$i]} ]; # -d checks if directory is empty
 	then

@@ -81,10 +81,10 @@ home.use('/srlplayer2/js', express.static(__dirname + '/srlplayer2/app/js'));
 home.use('/srlplayer2/css', express.static(__dirname + '/srlplayer2/app/css'));
 home.use('/srlplayer2/img', express.static(__dirname + '/srlplayer2/app/img'));
 
-home.use('/match-follows/js', express.static(__dirname + '/match-follows/www/js'));
-home.use('/match-follows/css', express.static(__dirname + '/match-follows/www/css'));
-home.use('/match-follows/fonts', express.static(__dirname + '/match-follows/www/fonts'));
-home.use('/match-follows/images', express.static(__dirname + '/match-follows/www/images'));
+home.use('/match-follows/js', express.static(__dirname + '/match-follows-for-twitch/www/js'));
+home.use('/match-follows/css', express.static(__dirname + '/match-follows-for-twitch/www/css'));
+home.use('/match-follows/fonts', express.static(__dirname + '/match-follows-for-twitch/www/fonts'));
+home.use('/match-follows/images', express.static(__dirname + '/match-follows-for-twitch/www/images'));
 
 
 
@@ -109,7 +109,7 @@ home.get('/srlplayer2/', function(req, res) {
     eventEmitter.emit('process IP', req.ip);
 })
 home.get('/match-follows/', function(req, res) {
-    res.sendFile(__dirname + '/match-follows/www/index.html');
+    res.sendFile(__dirname + '/match-follows-for-twitch/www/index.html');
     eventEmitter.emit('process IP', req.ip);
 })
 
