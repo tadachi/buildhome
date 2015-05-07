@@ -81,6 +81,12 @@ home.use('/srlplayer2/js', express.static(__dirname + '/srlplayer2/app/js'));
 home.use('/srlplayer2/css', express.static(__dirname + '/srlplayer2/app/css'));
 home.use('/srlplayer2/img', express.static(__dirname + '/srlplayer2/app/img'));
 
+home.use('/match-follows/js', express.static(__dirname + '/match-follows/www/js'));
+home.use('/match-follows/css', express.static(__dirname + '/match-follows/www/css'));
+home.use('/match-follows/fonts', express.static(__dirname + '/match-follows/www/fonts'));
+home.use('/match-follows/images', express.static(__dirname + '/match-follows/www/images'));
+
+
 
 
 // Set the Favicon.
@@ -102,11 +108,16 @@ home.get('/srlplayer2/', function(req, res) {
     res.sendFile(__dirname + '/srlplayer2/app/index.html');
     eventEmitter.emit('process IP', req.ip);
 })
+home.get('/match-follows/', function(req, res) {
+    res.sendFile(__dirname + '/match-follows/www/index.html');
+    eventEmitter.emit('process IP', req.ip);
+})
+
 
 // Actual domain names.
 app.use(vhost('www.takbytes.com', home));
 // Local host file domain names.
-app.use(vhost('www.tak.com', home));
+//app.use(vhost('www.tak.com', home));
 
 // '*' denotes catch all. If the above routes do not trigger, respond with 404.
 app.get('*', function(req, res, next) {

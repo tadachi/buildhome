@@ -7,11 +7,13 @@ set repo[1]=https://github.com/tadachi/homepage.git
 set repo[2]=https://github.com/tadachi/multi-twitch-chat.git
 set repo[3]=https://github.com/tadachi/srlplayer2.git
 set repo[4]=https://github.com/tadachi/html-error-pages.git
+set repo[5]=https://github.com/tadachi/match-follows-for-twitch.git
 
 set directory[1]=homepage
 set directory[2]=multi-twitch-chat
 set directory[3]=srlplayer2
 set directory[4]=html-error-pages
+set directory[5]=match-follows
 
 REM full path to current directory including drive.
 REM set mypath=%~dp0
