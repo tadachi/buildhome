@@ -22,8 +22,8 @@ var https           = require('https');
 htimeStamp = function() {
     var date = new Date();
     result = '[' + date.getFullYear() + '/' + date.getMonth() + '/' +
-        date.getDate() + '/' + date.getHours() + ':' +
-        date.getMinutes() + ':' + date.getSeconds() + ']';
+    date.getDate() + '/' + date.getHours() + ':' +
+    date.getMinutes() + ':' + date.getSeconds() + ']';
     return result;
 }
 
@@ -62,6 +62,10 @@ var ioHttp = require('socket.io').listen(httpServer);
 // This app is routed to a variable called homepage called homepage calling express. You can host multiple websites by following homepage as a template.
 var home = express();
 
+// Config for router.
+home.set('strict routing', true);
+home.enable('case sensitive routing');
+
 /**
  *  Explicitly setup the website(s)' resources.
  */
@@ -86,11 +90,21 @@ home.use('/match-follows/css', express.static(__dirname + '/match-follows-for-tw
 home.use('/match-follows/fonts', express.static(__dirname + '/match-follows-for-twitch/www/fonts'));
 home.use('/match-follows/images', express.static(__dirname + '/match-follows-for-twitch/www/images'));
 
-
-
-
 // Set the Favicon.
 app.use(favicon(__dirname + '/favicon.ico'));
+
+/**
+ * Redirect rules.
+ */
+home.get('/multi-twitch-chat', function(req, res) {
+    res.redirect('/multi-twitch-chat/')
+});
+home.get('/srlplayer2', function(req, res) {
+    res.redirect('/srlplayer2/')
+});
+home.get('/match-follows', function(req, res) {
+    res.redirect('/match-follows/')
+});
 
 /**
  *  Serve web content.
@@ -98,24 +112,22 @@ app.use(favicon(__dirname + '/favicon.ico'));
 home.get('/', function(req, res) {
     res.sendFile(__dirname + '/homepage/view/index.html');
     eventEmitter.emit('process IP', req.ip);
-})
-
+});
 home.get('/multi-twitch-chat/', function(req, res) {
     res.sendFile(__dirname + '/multi-twitch-chat/app/index.html');
     eventEmitter.emit('process IP', req.ip);
-})
+});
 home.get('/srlplayer2/', function(req, res) {
     res.sendFile(__dirname + '/srlplayer2/app/index.html');
     eventEmitter.emit('process IP', req.ip);
-})
+});
 home.get('/match-follows/', function(req, res) {
     res.sendFile(__dirname + '/match-follows-for-twitch/www/index.html');
     eventEmitter.emit('process IP', req.ip);
-})
-
+});
 
 // Actual domain names.
-//app.use(vhost('www.takbytes.com', home));
+app.use(vhost('www.takbytes.com', home));
 // Local host file domain names.
 //app.use(vhost('www.tak.com', home));
 
