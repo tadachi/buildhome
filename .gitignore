@@ -4,6 +4,7 @@ srlplayer/
 html-error-pages/
 multi-twitch-chat/
 srlplayer2/
+node_modules/
 ssl.crt
 ssl.key
 ssl-unified.crt

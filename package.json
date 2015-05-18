@@ -1,6 +1,8 @@
 {
   "name": "buildhome",
+  "description": "A web server for my homepage.",
   "main": "server.js",
+  "private": true,
   "dependencies": {
     "express": "^4.12.3",
 	"bunyan": "^1.3.5",
