@@ -7,7 +7,7 @@ repo[1]='https://github.com/tadachi/multi-twitch-chat.git'
 repo[2]='https://github.com/tadachi/srlplayer2.git'
 repo[3]='https://github.com/tadachi/html-error-pages.git'
 repo[4]='https://github.com/tadachi/match-follows-for-twitch.git'
-repo[5]='https://github.com/tadachi/match-follows-for-twitch.git'
+repo[5]='https://github.com/tadachi/manga-front.git'
 
 # HERE!
 directory[0]='homepage'
@@ -15,7 +15,7 @@ directory[1]='multi-twitch-chat'
 directory[2]='srlplayer2'
 directory[3]='html-error-pages'
 directory[4]='match-follows-for-twitch'
-directory[5]='match-follows-for-twitch'
+directory[5]='manga-front'
 
 for i in {0..5} # AND HERE!
 do
