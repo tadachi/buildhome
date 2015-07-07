@@ -90,6 +90,13 @@ home.use('/match-follows/css', express.static(__dirname + '/match-follows-for-tw
 home.use('/match-follows/fonts', express.static(__dirname + '/match-follows-for-twitch/www/fonts'));
 home.use('/match-follows/images', express.static(__dirname + '/match-follows-for-twitch/www/images'));
 
+home.use('/manga-front/js', express.static(__dirname + '/manga-front/js'));
+home.use('/manga-front/css', express.static(__dirname + '/manga-front/css'));
+home.use('/manga-front/fonts', express.static(__dirname + '/manga-front/fonts'));
+home.use('/manga-front/manga_index', express.static(__dirname + '/manga-front/manga_json'));
+home.use('/manga-front/manga_index', express.static(__dirname + '/manga-front/manga_index'));
+home.use('/manga-front/manga', express.static(__dirname + '/manga-front/manga'));
+
 // Set the Favicon.
 app.use(favicon(__dirname + '/favicon.ico'));
 
@@ -104,6 +111,10 @@ home.get('/srlplayer2', function(req, res) {
 });
 home.get('/match-follows', function(req, res) {
     res.redirect('/match-follows/')
+});
+
+home.get('/manga-front', function(req, res) {
+    res.redirect('/manga-front/')
 });
 
 /**
@@ -125,11 +136,15 @@ home.get('/match-follows/', function(req, res) {
     res.sendFile(__dirname + '/match-follows-for-twitch/www/index.html');
     eventEmitter.emit('process IP', req.ip);
 });
+home.get('/manga-front/', function(req, res) {
+    res.sendFile(__dirname + '/manga-front/index.html');
+    eventEmitter.emit('process IP', req.ip);
+});
 
 // Actual domain names.
-app.use(vhost('www.takbytes.com', home));
+//app.use(vhost('www.takbytes.com', home));
 // Local host file domain names.
-//app.use(vhost('www.tak.com', home));
+app.use(vhost('www.tak.com', home));
 
 // '*' denotes catch all. If the above routes do not trigger, respond with 404.
 app.get('*', function(req, res, next) {
