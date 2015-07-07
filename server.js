@@ -142,9 +142,9 @@ home.get('/manga-front/', function(req, res) {
 });
 
 // Actual domain names.
-//app.use(vhost('www.takbytes.com', home));
+app.use(vhost('www.takbytes.com', home));
 // Local host file domain names.
-app.use(vhost('www.tak.com', home));
+//app.use(vhost('www.tak.com', home));
 
 // '*' denotes catch all. If the above routes do not trigger, respond with 404.
 app.get('*', function(req, res, next) {

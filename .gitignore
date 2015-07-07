@@ -6,6 +6,7 @@ multi-twitch-chat/
 match-follows-for-twitch/
 srlplayer2/
 node_modules/
+idea/
 ssl.crt
 ssl.key
 ssl-unified.crt
