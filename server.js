@@ -21,7 +21,7 @@ var https           = require('https');
 // Simple timestamp function. Invoke with timestamp();
 htimeStamp = function() {
     var date = new Date();
-    result = '[' + date.getFullYear() + '/' + date.getMonth() + '/' +
+    var result = '[' + date.getFullYear() + '/' + date.getMonth() + '/' +
     date.getDate() + '/' + date.getHours() + ':' +
     date.getMinutes() + ':' + date.getSeconds() + ']';
     return result;
@@ -97,6 +97,10 @@ home.use('/manga-front/manga_index', express.static(__dirname + '/manga-front/ma
 home.use('/manga-front/manga_index', express.static(__dirname + '/manga-front/manga_index'));
 home.use('/manga-front/manga', express.static(__dirname + '/manga-front/manga'));
 
+home.use('/streamy/js', express.static(__dirname + '/streamy/app/js'));
+home.use('/streamy/css', express.static(__dirname + '/streamy/app/css'));
+home.use('/streamy/assets', express.static(__dirname + '/streamy/app/assets'));
+
 // Set the Favicon.
 app.use(favicon(__dirname + '/favicon.ico'));
 
@@ -112,11 +116,12 @@ home.get('/srlplayer2', function(req, res) {
 home.get('/match-follows', function(req, res) {
     res.redirect('/match-follows/')
 });
-
 home.get('/manga-front', function(req, res) {
     res.redirect('/manga-front/')
 });
-
+home.get('/streamy', function(req, res) {
+    res.redirect('/streamy/')
+});
 /**
  *  Serve web content.
  */
@@ -138,6 +143,10 @@ home.get('/match-follows/', function(req, res) {
 });
 home.get('/manga-front/', function(req, res) {
     res.sendFile(__dirname + '/manga-front/index.html');
+    eventEmitter.emit('process IP', req.ip);
+});
+home.get('/streamy/', function(req, res) {
+    res.sendFile(__dirname + '/streamy/app/index.html');
     eventEmitter.emit('process IP', req.ip);
 });
 
