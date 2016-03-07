@@ -19,7 +19,7 @@ directory[4]='match-follows-for-twitch'
 directory[5]='manga-front'
 directory[6]='streamy'
 
-for i in {0..5} # AND HERE!
+for i in {0..6} # AND HERE!
 do
 	if [ -d ${directory[$i]} ]; # -d checks if directory is empty
 	then

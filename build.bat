@@ -24,7 +24,7 @@ set directory[7]=streamy
 REM full path to current directory including drive.
 REM set mypath=%~dp0
 
-for /l %%i in (1, 1, 6) do ( // AND HERE!
+for /l %%i in (1, 1, 7) do ( // AND HERE!
     if exist !directory[%%i]! (
         echo Updating !directory[%%i]!....
         cd !directory[%%i]! & git pull & cd ..
