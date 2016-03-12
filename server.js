@@ -146,7 +146,7 @@ home.get('/manga-front/', function(req, res) {
     eventEmitter.emit('process IP', req.ip);
 });
 home.get('/streamy/', function(req, res) {
-    res.sendFile(__dirname + '/streamy/app/index.html');
+    res.sendFile(__dirname + '/streamy/index.html');
     eventEmitter.emit('process IP', req.ip);
 });
 
