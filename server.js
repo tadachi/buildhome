@@ -97,9 +97,9 @@ home.use('/manga-front/manga_index', express.static(__dirname + '/manga-front/ma
 home.use('/manga-front/manga_index', express.static(__dirname + '/manga-front/manga_index'));
 home.use('/manga-front/manga', express.static(__dirname + '/manga-front/manga'));
 
-home.use('/streamy/js', express.static(__dirname + '/streamy/app/js'));
-home.use('/streamy/css', express.static(__dirname + '/streamy/app/css'));
-home.use('/streamy/assets', express.static(__dirname + '/streamy/app/assets'));
+home.use('/streamy/js', express.static(__dirname + '/streamy/js'));
+home.use('/streamy/css', express.static(__dirname + '/streamy/css'));
+home.use('/streamy/assets', express.static(__dirname + '/streamy/assets'));
 
 // Set the Favicon.
 app.use(favicon(__dirname + '/favicon.ico'));
