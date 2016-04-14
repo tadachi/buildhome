@@ -11,21 +11,10 @@ var app             = express();
 var geoip           = require('geoip-lite');
 
 var fs              = require('fs');
-var https           = require('https');
 
-// SSL stuff. Do git commit paths to your actual keys. Edit the paths after cloning.
-//var privateKey  = fs.readFileSync('YOUR PATH', 'utf8');
-//var certificate = fs.readFileSync('YOUR PATH', 'utf8');
-//var options = {key: privateKey, cert: certificate};
-
-// Simple timestamp function. Invoke with timestamp();
-htimeStamp = function() {
-    var date = new Date();
-    var result = '[' + date.getFullYear() + '/' + date.getMonth() + '/' +
-    date.getDate() + '/' + date.getHours() + ':' +
-    date.getMinutes() + ':' + date.getSeconds() + ']';
-    return result;
-}
+/*
+ * USE NGINX upstream for SSL/HTTPS!!
+ * /
 
 /**
  * Configure Logger
@@ -43,18 +32,7 @@ var httpServer = app.listen(httpPort, function() {
     console.log('node -v: ' + process.versions.node);
 });
 
-/**
- *  Configure the HTTPS webServer. and launch it.
- */
-//var httpsServer  = https.createServer(options, app).listen(httpsPort, function() {
-//    //debug('Express webServer listening on httpPort ' + webServer.address().httpPort);
-//    console.log(__dirname);
-//    console.log('Listening on httpPort: ' + httpsPort);
-//    console.log('node -v: ' + process.versions.node);
-//});
-
 var ioHttp = require('socket.io').listen(httpServer);
-//var ioHttps = require('socket.io').listen(httpsServer);
 
 /**
  *  Initialize website(s).
@@ -122,6 +100,7 @@ home.get('/manga-front', function(req, res) {
 home.get('/streamy', function(req, res) {
     res.redirect('/streamy/')
 });
+
 /**
  *  Serve web content.
  */
@@ -152,6 +131,7 @@ home.get('/streamy/', function(req, res) {
 
 // Actual domain names.
 app.use(vhost('www.takbytes.com', home));
+
 // Local host file domain names.
 //app.use(vhost('www.tak.com', home));
 
@@ -182,19 +162,3 @@ ioHttp.on('connection', function(socket){ // By default io looks for 'connection
         //console.log(htimeStamp() + " event: disconnected - connected users: " + io.engine.clientsCount);
     });
 });
-
-/**
- * Socket.io Server-side. HTTPS
- */
-//ioHttps.on('connection', function(socket){ // By default io looks for 'connection' message.
-//    socket.on('connect srl', function(msg){
-//        ioHttps.emit('connected srl', ioHttps.engine.clientsCount);
-//        //console.log(htimeStamp() + " event: connected - connected users: " + io.engine.clientsCount);
-//    });
-//
-//    // Disconnect such as closing tab and exiting webpage.
-//    socket.on('disconnect', function() {
-//        ioHttps.emit('connected srl', ioHttps.engine.clientsCount);
-//        //console.log(htimeStamp() + " event: disconnected - connected users: " + io.engine.clientsCount);
-//    });
-//});
