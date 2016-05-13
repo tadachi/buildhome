@@ -9,6 +9,7 @@ repo[3]='https://github.com/tadachi/html-error-pages.git'
 repo[4]='https://github.com/tadachi/match-follows-for-twitch.git'
 repo[5]='https://github.com/tadachi/manga-front.git'
 repo[6]='https://github.com/tadachi/streamy.git'
+repo[7]='https://github.com/tadachi/streamy-remote-controller.git'
 
 # HERE!
 directory[0]='homepage'
@@ -18,6 +19,7 @@ directory[3]='html-error-pages'
 directory[4]='match-follows-for-twitch'
 directory[5]='manga-front'
 directory[6]='streamy'
+directory[7]='streamy/streamy-remote-controller'
 
 for i in {0..6} # AND HERE!
 do
@@ -26,6 +28,6 @@ do
 		printf "Updating '%s'.... " ${directory[$i]}
 		(cd ${directory[$i]} ; git pull); # git pull the latest version.
 	else
-		eval git clone ${repo[$i]}; # clone the latest version.
+		eval git clone ${repo[$i]} ${directory[$i]}; # clone the latest version in a specific directory.
 	fi
 done

@@ -2,12 +2,16 @@ multitwitchchat/
 homepage/
 srlplayer/
 html-error-pages/
+manga-front/
 multi-twitch-chat/
 match-follows-for-twitch/
 srlplayer2/
+streamy/
 node_modules/
 idea/
 ssl.crt
 ssl.key
 ssl-unified.crt
 ssl-dec.key
+server.js
+npm-debug.log
