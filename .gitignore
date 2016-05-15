@@ -8,7 +8,7 @@ match-follows-for-twitch/
 srlplayer2/
 streamy/
 node_modules/
-idea/
+.idea/
 ssl.crt
 ssl.key
 ssl-unified.crt
