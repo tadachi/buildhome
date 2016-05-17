@@ -13,5 +13,6 @@ ssl.crt
 ssl.key
 ssl-unified.crt
 ssl-dec.key
-server.js
 npm-debug.log
+
+/server.js
