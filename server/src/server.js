@@ -184,3 +184,12 @@ streamy_remote_controller.on('connection', function(socket) {
     });
     
 });
+
+const util = require('util');
+
+setInterval(function() {
+    let mem = process.memoryUsage();
+    console.log(
+        `rss: ${parseInt(mem.rss/1000000)}M, heapTotal: ${parseInt(mem.heapTotal/1000000)}M, heapUsed: ${parseInt(mem.heapUsed/1000000)}M`
+    );
+}, 1000);
